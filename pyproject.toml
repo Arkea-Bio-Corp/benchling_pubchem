@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "benchling-pubchem"
+version = "0.1.0"
+description = "A benchling application for pulling molecules from pubchem."
+authors = ["Taylor Falk <tfalk@arkeabio.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+benchling-sdk = "^1.21.2"
+httpx = "^0.28.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
