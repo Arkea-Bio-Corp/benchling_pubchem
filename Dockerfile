@@ -4,8 +4,6 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
     unzip \
-    postgresql \
-    libpq-dev \
     software-properties-common \
     && rm -rf /var/lib/apt/lists/*
 
@@ -30,6 +28,9 @@ ENV AWS_DEFAULT_REGION="us-east-1"
 RUN poetry install --no-root
 
 # bring in full app and install
-COPY streamlit/ /app/
+COPY . /app/
 
 RUN poetry install --no-root
+
+ENTRYPOINT [ "poetry", "run", "python", "-m", "awslambdaric" ]
+CMD [ "local_app.app.handler" ]
