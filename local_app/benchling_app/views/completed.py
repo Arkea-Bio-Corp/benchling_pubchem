@@ -1,3 +1,4 @@
+# type: ignore
 from benchling_sdk.apps.canvas.framework import CanvasBuilder
 from benchling_sdk.apps.canvas.types import UiBlock
 from benchling_sdk.apps.status.framework import SessionContextManager

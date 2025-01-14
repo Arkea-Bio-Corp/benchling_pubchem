@@ -1,3 +1,4 @@
+# type: ignore
 from typing import Any
 
 from benchling_sdk.apps.framework import App
@@ -24,8 +25,12 @@ def create_molecule(app: App, chemical_result: dict[str, Any]) -> Molecule:
     # .required().value_str() are only needed for type safety checks like MyPy
     # If type safety isn't a concern:
     # `app.config_store.config_by_path(["Molecule Schema", "Molecular Weight"]).value`
-    molecular_weight_field = config(["Molecule Schema", "Molecular Weight"]).required().value_str()
-    mono_isotopic_field = config(["Molecule Schema", "MonoIsotopic"]).required().value_str()
+    molecular_weight_field = (
+        config(["Molecule Schema", "Molecular Weight"]).required().value_str()
+    )
+    mono_isotopic_field = (
+        config(["Molecule Schema", "MonoIsotopic"]).required().value_str()
+    )
     molecule_create = MoleculeCreate(
         chemical_structure=molecule_structure,
         name=chemical_result["name"],

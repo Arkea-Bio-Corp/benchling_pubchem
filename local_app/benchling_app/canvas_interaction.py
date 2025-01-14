@@ -29,10 +29,14 @@ class UnsupportedButtonError(Exception):
     pass
 
 
-def route_interaction_webhook(app: App, canvas_interaction: CanvasInteractionWebhookV2) -> None:
+def route_interaction_webhook(
+    app: App, canvas_interaction: CanvasInteractionWebhookV2
+) -> None:
     canvas_id = canvas_interaction.canvas_id
     if canvas_interaction.button_id == SEARCH_BUTTON_ID:
-        with app.create_session_context("Search Chemicals", timeout_seconds=20) as session:
+        with app.create_session_context(
+            "Search Chemicals", timeout_seconds=20
+        ) as session:
             session.attach_canvas(canvas_id)
             canvas_builder = _canvas_builder_from_canvas_id(app, canvas_id)
             canvas_inputs = canvas_builder.inputs_to_dict_single_value()
@@ -42,20 +46,24 @@ def route_interaction_webhook(app: App, canvas_interaction: CanvasInteractionWeb
     elif canvas_interaction.button_id == CANCEL_BUTTON_ID:
         # Set session_id = None to detach and prior state or messages (essentially, reset)
         canvas_builder = _canvas_builder_from_canvas_id(app, canvas_id)
-        canvas_update = canvas_builder.with_enabled()\
-            .with_session_id(None)\
-            .with_blocks(input_blocks())\
+        canvas_update = (
+            canvas_builder.with_enabled()
+            .with_session_id(None)
+            .with_blocks(input_blocks())
             .to_update()
+        )
         app.benchling.apps.update_canvas(canvas_id, canvas_update)
     elif canvas_interaction.button_id == CREATE_BUTTON_ID:
-        with app.create_session_context("Create Molecules", timeout_seconds=20) as session:
+        with app.create_session_context(
+            "Create Molecules", timeout_seconds=20
+        ) as session:
             session.attach_canvas(canvas_id)
             canvas_builder = _canvas_builder_from_canvas_id(app, canvas_id)
             molecule = _create_molecule_from_canvas(app, canvas_builder)
             render_completed_canvas(molecule, canvas_id, canvas_builder, session)
     else:
         # Re-enable the Canvas, or it will stay disabled and the user will be stuck
-        app.benchling.apps.update_canvas(canvas_id, AppCanvasUpdate(enabled=True))
+        app.benchling.apps.update_canvas(canvas_id, AppCanvasUpdate(enabled=True))  # type: ignore
         # Not shown to user by default, for our own logs cause we forgot to handle some button
         # This is developer error
         raise UnsupportedButtonError(
@@ -86,6 +94,8 @@ def _validate_and_sanitize_inputs(inputs: dict[str, str]) -> dict[str, str]:
         # via the App's session and end control flow
         raise AppUserFacingError("Please enter a chemical name to search for")
     if not re.match("^[a-zA-Z\\d\\s\\-]+$", inputs[SEARCH_TEXT_ID]):
-        raise AppUserFacingError("The chemical name can only contain letters, numbers, spaces, and hyphens")
+        raise AppUserFacingError(
+            "The chemical name can only contain letters, numbers, spaces, and hyphens"
+        )
     sanitized_inputs[SEARCH_TEXT_ID] = quote(inputs[SEARCH_TEXT_ID])
     return sanitized_inputs
