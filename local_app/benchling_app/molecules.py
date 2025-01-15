@@ -31,6 +31,9 @@ def create_molecule(app: App, chemical_result: dict[str, Any]) -> Molecule:
     mono_isotopic_field = (
         config(["Molecule Schema", "MonoIsotopic"]).required().value_str()
     )
+    formula = config(["Molecule Schema", "Formula"]).required().value_str()
+    cas_num = config(["Molecule Schema", "CAS Number"]).required().value_str()
+    smiles_raw = config(["Molecule Schema", "SMILES"]).required().value_str()
     molecule_create = MoleculeCreate(
         chemical_structure=molecule_structure,
         name=chemical_result["name"],
@@ -41,6 +44,9 @@ def create_molecule(app: App, chemical_result: dict[str, Any]) -> Molecule:
             {
                 molecular_weight_field: {"value": chemical_result["molecularWeight"]},
                 mono_isotopic_field: {"value": chemical_result["monoisotopic"]},
+                formula: {"value": chemical_result["molecularFormula"]},
+                cas_num: {"value": chemical_result["casNum"]},
+                smiles_raw: {"value": chemical_result["smiles"]},
             },
         ),
     )

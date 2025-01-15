@@ -1,13 +1,13 @@
 manifestVersion: 1
 
 info:
-  name: Sample PubChem - Test Time
-  version: 0.1.0
+  name: PubChem Search App
+  version: 0.2.0
 features:
-  - name: Sync Step
+  - name: PubChem Search
     id: sync_step
     type: ASSAY_RUN
-  - name: Sync Step
+  - name: PubChem Search
     id: canvas_sync_step
     type: CANVAS
 subscriptions:
@@ -27,6 +27,15 @@ configuration:
     description: A chemical schema for molecules synced from PubChem.
     requiredConfig: true
     fieldDefinitions:
+      - name: Formula
+        type: text
+        requiredConfig: true
+      - name: CAS Number
+        type: text
+        requiredConfig: true
+      - name: SMILES
+        type: text
+        requiredConfig: true
       - name: Molecular Weight
         type: float
         requiredConfig: true
