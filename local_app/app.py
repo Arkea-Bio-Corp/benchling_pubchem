@@ -17,4 +17,4 @@ def handler(event, context):
     logger.debug("Received webhook message: %s", event["body"])
 
     handle_webhook(json.loads(event["body"]))
-    return {"statusCode": 200, "body": json.dumps("we did it")}
+    return {"statusCode": 200, "body": "OK"}
