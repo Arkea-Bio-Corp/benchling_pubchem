@@ -17,7 +17,7 @@ def init_app_from_webhook(webhook: WebhookEnvelopeV0) -> App:
 @cache
 def get_secret():
     """Use AWS Secrets to get app details"""
-    secret_name = "dev/benchling_pubchem"
+    secret_name = "prod/benchling_pubchem"
     region_name = "us-east-1"
 
     session = bt3sess.Session()
