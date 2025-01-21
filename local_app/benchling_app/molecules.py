@@ -22,12 +22,6 @@ def create_molecule(app: App, chemical_result: dict[str, Any]) -> Molecule:
         value=chemical_result["smiles"],
     )
     config = app.config_store.config_by_path
-    # .required().value_str() are only needed for type safety checks like MyPy
-    # If type safety isn't a concern:
-    # `app.config_store.config_by_path(["Molecule Schema", "Molecular Weight"]).value`
-    molecular_weight_field = (
-        config(["Molecule Schema", "Molecular Weight"]).required().value_str()
-    )
     formula = config(["Molecule Schema", "Formula"]).required().value_str()
     cas_num = config(["Molecule Schema", "CAS Number"]).required().value_str()
     smiles_raw = config(["Molecule Schema", "SMILES"]).required().value_str()
@@ -39,7 +33,6 @@ def create_molecule(app: App, chemical_result: dict[str, Any]) -> Molecule:
         schema_id=config(["Molecule Schema"]).required().value_str(),
         fields=fields(
             {
-                molecular_weight_field: {"value": chemical_result["molecularWeight"]},
                 formula: {"value": chemical_result["molecularFormula"]},
                 cas_num: {"value": chemical_result["casNum"]},
                 smiles_raw: {"value": chemical_result["smiles"]},

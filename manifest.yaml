@@ -36,6 +36,3 @@ configuration:
       - name: SMILES
         type: text
         requiredConfig: true
-      - name: Molecular Weight
-        type: float
-        requiredConfig: true

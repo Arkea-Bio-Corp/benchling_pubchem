@@ -51,9 +51,6 @@ def get_by_cid(cid: str) -> dict[str, Any]:
     name = synonyms_json["Information"][0]["Synonym"][0]
     compound_json = result_json["PC_Compounds"][0]
     smiles = _get_compound_string_prop(compound_json, label="SMILES", name="Canonical")
-    molecular_weight = _get_compound_string_prop(
-        compound_json, label="Molecular Weight"
-    )
     molecular_formula = _get_compound_string_prop(
         compound_json, label="Molecular Formula"
     )
@@ -63,7 +60,6 @@ def get_by_cid(cid: str) -> dict[str, Any]:
         "name": name,
         "casNum": cas_num,
         "smiles": smiles,
-        "molecularWeight": molecular_weight,
         "molecularFormula": molecular_formula,
     }
 
