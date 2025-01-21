@@ -8,7 +8,7 @@ def lambda_handler(event, context):
     # this lambda function calls the other lambda function, which is created by the
     # Dockerfile in this root dir.
 
-    response = client.invoke(
+    client.invoke(  # fire up our other other lambda to do the actual work
         FunctionName="benchling_pubchem",
         # payload MUST be bytes, so encode the dictionary we get from event and pass
         # along to our other benchling Lambda function.

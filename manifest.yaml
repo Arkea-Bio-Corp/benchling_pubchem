@@ -41,4 +41,4 @@ configuration:
         requiredConfig: true
       - name: MonoIsotopic
         type: float
-        requiredConfig: true
+        requiredConfig: false
