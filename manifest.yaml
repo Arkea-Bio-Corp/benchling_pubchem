@@ -2,7 +2,7 @@ manifestVersion: 1
 
 info:
   name: PubChem Search App
-  version: 0.3.0
+  version: 0.4.0
 features:
   - name: PubChem Search
     id: sync_step
@@ -39,6 +39,3 @@ configuration:
       - name: Molecular Weight
         type: float
         requiredConfig: true
-      - name: MonoIsotopic
-        type: float
-        requiredConfig: false

@@ -45,16 +45,12 @@ def search(query: str, limit: int = 1) -> list[dict[str, Any]]:
 # Example: https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/2244/JSON
 def get_by_cid(cid: str) -> dict[str, Any]:
     result_json = _pubchem_get(f"cid/{cid}/JSON")
-    print(result_json)
     synonyms_json = _pubchem_get(f"cid/{cid}/synonyms/JSON")["InformationList"]
     r = re.compile(r"\d+-\d+-\d+")  # search for cas number by format
     cas_num = list(filter(r.match, synonyms_json["Information"][0]["Synonym"]))[0]
     name = synonyms_json["Information"][0]["Synonym"][0]
     compound_json = result_json["PC_Compounds"][0]
     smiles = _get_compound_string_prop(compound_json, label="SMILES", name="Canonical")
-    mono_isotopic_weight = _get_compound_string_prop(
-        compound_json, label="Weight", name="MonoIsotopic"
-    )
     molecular_weight = _get_compound_string_prop(
         compound_json, label="Molecular Weight"
     )
@@ -69,7 +65,6 @@ def get_by_cid(cid: str) -> dict[str, Any]:
         "smiles": smiles,
         "molecularWeight": molecular_weight,
         "molecularFormula": molecular_formula,
-        "monoisotopic": mono_isotopic_weight,
     }
 
 
