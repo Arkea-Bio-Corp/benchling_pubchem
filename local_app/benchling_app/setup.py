@@ -1,3 +1,4 @@
+import local_app.benchling_app.views.constants as constants
 import json
 
 from functools import cache
@@ -17,8 +18,8 @@ def init_app_from_webhook(webhook: WebhookEnvelopeV0) -> App:
 @cache
 def get_secret():
     """Use AWS Secrets to get app details"""
-    secret_name = "prod/benchling_pubchem"
-    region_name = "us-east-1"
+    secret_name = constants.SECRET_NAME
+    region_name = constants.AWS_REGION
 
     session = bt3sess.Session()
     client = session.client(service_name="secretsmanager", region_name=region_name)

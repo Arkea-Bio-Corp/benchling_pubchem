@@ -8,3 +8,10 @@ SEARCH_TEXT_ID = "search_text"
 
 # Keys for canvas data
 CID_KEY = "chemical_cid"
+
+# AWS details:
+## AWS Region
+AWS_REGION = "us-east-1"
+
+## AWS secrets name
+SECRET_NAME = "prod/benchling_pubchem"
