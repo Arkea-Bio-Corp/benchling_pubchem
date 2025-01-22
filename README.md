@@ -16,7 +16,7 @@ Some steps are abbreviated for brevity.
 ```
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ***.dkr.ecr.us-east-1.amazonaws.com
 ```
-3. Clone the repo using `git clone git@github.com:Arkea-Bio-Corp/antigen-warehouse.git`
+3. Clone the repo using `git clone git@github.com:Arkea-Bio-Corp/benchling_pubchem.git`
 4. Build, tag, and upload to your image to the ECR registry created above:
 ```
 docker build -t new_registry . 
